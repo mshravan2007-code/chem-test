@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>English MCQ Practice</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-active: #1e40af;
+      --primary-light: #eff6ff;
+      --border: #e2e8f0;
+      --border-hover: #cbd5e1;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --success-border: #86efac;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --danger-border: #fca5a5;
+      --progress-bg: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --badge-bg: #f1f5f9;
+      --badge-text: #334155;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1120;
+        --card-bg: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --primary: #3b82f6;
+        --primary-hover: #2563eb;
+        --primary-active: #1d4ed8;
+        --primary-light: #1e3a8a33;
+        --border: #334155;
+        --border-hover: #475569;
+        --success: #22c55e;
+        --success-bg: #052e16;
+        --success-border: #166534;
+        --danger: #ef4444;
+        --danger-bg: #450a0a;
+        --danger-border: #991b1b;
+        --progress-bg: #334155;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+        --badge-bg: #334155;
+        --badge-text: #cbd5e1;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px 12px 32px 12px;
+      font-size: 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Card styling */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    /* Header styling */
+    .app-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Screen management */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Start screen */
+    .start-content {
+      text-align: center;
+    }
+
+    .quiz-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .features-list {
+      text-align: left;
+      margin: 20px 0 28px 0;
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .btn:active {
+      transform: scale(0.985);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      margin-top: 12px;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--badge-bg);
+      border-color: var(--border-hover);
+    }
+
+    /* Question Screen */
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: var(--progress-bg);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 999px;
+    }
+
+    .question-box {
+      margin-bottom: 20px;
+    }
+
+    .question-text {
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+
+    /* Options */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      text-align: left;
+      font-size: 1rem;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+      touch-action: manipulation;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: scale(0.99);
+    }
+
+    .option-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .option-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background-color: var(--badge-bg);
+      color: var(--badge-text);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-right: 12px;
+      flex-shrink: 0;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .option-label-text {
+      flex-grow: 1;
+      word-break: break-word;
+    }
+
+    .option-status-icon {
+      margin-left: 8px;
+      flex-shrink: 0;
+      display: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* Answer States */
+    .option-btn.selected-correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success) !important;
+      color: var(--text-main);
+    }
+
+    .option-btn.selected-correct .option-badge {
+      background-color: var(--success);
+      color: #ffffff;
+    }
+
+    .option-btn.selected-correct .option-status-icon {
+      display: inline;
+      color: var(--success);
+    }
+
+    .option-btn.selected-wrong {
+      background-color: var(--danger-bg) !important;
+      border-color: var(--danger) !important;
+      color: var(--text-main);
+    }
+
+    .option-btn.selected-wrong .option-badge {
+      background-color: var(--danger);
+      color: #ffffff;
+    }
+
+    .option-btn.selected-wrong .option-status-icon {
+      display: inline;
+      color: var(--danger);
+    }
+
+    .option-btn.reveal-correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success) !important;
+      color: var(--text-main);
+    }
+
+    .option-btn.reveal-correct .option-badge {
+      background-color: var(--success);
+      color: #ffffff;
+    }
+
+    .option-btn.reveal-correct .option-status-icon {
+      display: inline;
+      color: var(--success);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .action-container {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Results screen */
+    .result-content {
+      text-align: center;
+    }
+
+    .score-circle {
+      margin: 10px auto 16px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: 3px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-big {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .score-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .percentage-badge {
+      display: inline-block;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    .grade-excellent {
+      background-color: var(--success-bg);
+      color: var(--success);
+      border: 1px solid var(--success-border);
+    }
+
+    .grade-good {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    .grade-fair {
+      background-color: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .grade-low {
+      background-color: var(--danger-bg);
+      color: var(--danger);
+      border: 1px solid var(--danger-border);
+    }
+
+    .result-feedback {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+
+    /* Mistakes Section */
+    .mistakes-container {
+      text-align: left;
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    .mistakes-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mistakes-count-badge {
+      background-color: var(--danger-bg);
+      color: var(--danger);
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .mistake-card {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+
+    .mistake-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .mistake-q {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .mistake-ans-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 0.88rem;
+    }
+
+    .ans-label {
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .ans-wrong {
+      color: var(--danger);
+    }
+
+    .ans-correct {
+      color: var(--success);
+    }
+
+    .perfect-score-banner {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success);
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .btn-reattempt {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      margin-bottom: 12px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+    }
+
+    .btn-reattempt:hover {
+      background: linear-gradient(135deg, #d97706, #b45309);
+    }
+
+    .app-footer {
+      text-align: center;
+      margin-top: 32px;
+      padding: 16px 0 8px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="app-header">
+      <h1>English MCQ Practice</h1>
+      <p id="header-subtitle" class="subtitle">All questions in one attempt</p>
+    </header>
+
+    <!-- START SCREEN -->
+    <main id="start-screen" class="screen active">
+      <div class="card start-content">
+        <div class="quiz-icon" aria-hidden="true">✍️</div>
+        <h2>Communication Skills Quiz</h2>
+        <p id="start-pool-sub" class="subtitle" style="margin-top: 6px;">All questions in one attempt</p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <span class="feature-dot"></span>
+            <span id="feature-attempt-info"><strong>All questions</strong> in one attempt (shuffled)</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-dot"></span>
+            <span><strong>Instant feedback</strong> with clear answer explanations</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-dot"></span>
+            <span><strong>Review mistakes</strong> & reattempt wrong questions</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-dot"></span>
+            <span id="feature-pool-info"><strong>Verified questions</strong> in total question pool</span>
+          </div>
+        </div>
+
+        <button id="start-btn" class="btn btn-primary" type="button">Start Practice</button>
+      </div>
+    </main>
+
+    <!-- QUESTION SCREEN -->
+    <main id="quiz-screen" class="screen">
+      <div class="card">
+        <div class="quiz-meta">
+          <span id="question-tracker">Question 1</span>
+          <span id="score-tracker">Score: 0</span>
+        </div>
+
+        <div id="progress-bar-container" class="progress-bar-container" role="progressbar" aria-valuemin="1" aria-valuemax="100" aria-valuenow="1">
+          <div id="progress-bar" class="progress-bar-fill"></div>
+        </div>
+
+        <div class="question-box">
+          <h2 id="question-text" class="question-text"></h2>
+        </div>
+
+        <div id="options-container" class="options-list">
+          <!-- Option buttons inserted dynamically -->
+        </div>
+
+        <div class="action-container">
+          <button id="next-btn" class="btn btn-primary" style="display: none;" type="button">Next Question</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- RESULT SCREEN -->
+    <main id="result-screen" class="screen">
+      <div class="card result-content">
+        <h2>Practice Completed!</h2>
+        <div class="score-circle">
+          <span id="final-score" class="score-big">0</span>
+          <span id="score-total-label" class="score-sub">out of 0</span>
+        </div>
+        <div id="percentage-badge" class="percentage-badge">0%</div>
+        <p id="feedback-message" class="result-feedback"></p>
+
+        <button id="reattempt-btn" class="btn btn-reattempt" style="display: none;" type="button">Reattempt wrong questions</button>
+        <button id="retry-btn" class="btn btn-primary" type="button">Try again</button>
+        <button id="home-btn" class="btn btn-secondary" type="button">Back to start</button>
+
+        <div id="mistakes-wrapper" class="mistakes-container" style="display: none;">
+          <div class="mistakes-heading">
+            <span>Review Mistakes</span>
+            <span id="mistakes-count" class="mistakes-count-badge">0</span>
+          </div>
+          <div id="mistakes-list">
+            <!-- Mistakes rendered here -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER CREDIT -->
+    <footer class="app-footer">
+      <div>Made with ❤️</div>
+      <div>made by - Shravan ⚡</div>
+    </footer>
+  </div>
+
+  <script>
+    // All 150 questions extracted directly from the PDF Question Bank
+    const ALL_QUESTIONS = [{"id": 1, "q": "Which of the following is an example of verbal communication?", "options": ["Facial expression", "Gesture", "Spoken words", "Eye contact"], "answer": 2, "guessed": false}, {"id": 2, "q": "Which of the following is an example of non-verbal communication?", "options": ["Speech", "Email", "Facial expression", "Telephone conversation"], "answer": 2, "guessed": false}, {"id": 3, "q": "Proxemics refers to the study of:", "options": ["Time in communication", "Personal and interpersonal space", "Voice modulation", "Speech sounds"], "answer": 1, "guessed": false}, {"id": 4, "q": "Chronemics is concerned with the use of:", "options": ["Space", "Time", "Gestures", "Voice"], "answer": 1, "guessed": false}, {"id": 5, "q": "Which of the following is a barrier to effective communication?", "options": ["Clarity", "Active listening", "Noise", "Feedback"], "answer": 2, "guessed": false}, {"id": 6, "q": "Which word contains a silent letter?", "options": ["Know", "Cat", "Run", "Sit"], "answer": 0, "guessed": false}, {"id": 7, "q": "The word “photograph” has stress on the:", "options": ["First syllable", "Second syllable", "Third syllable", "Fourth syllable"], "answer": 0, "guessed": false}, {"id": 8, "q": "The sound /θ/ as in “think” is a:", "options": ["Voiced sound", "Voiceless sound", "Nasal sound", "Plosive sound"], "answer": 1, "guessed": false}, {"id": 9, "q": "Which of the following contains a long vowel sound?", "options": ["Ship", "Bit", "Sheep", "Sit"], "answer": 2, "guessed": false}, {"id": 10, "q": "The final sound in the word “dogs” is pronounced as:", "options": ["/s/", "/z/", "/ɪz/", "/ʃ/"], "answer": 1, "guessed": false}, {"id": 11, "q": "The word “read” in “I read the book yesterday” is pronounced as:", "options": ["/riːd/", "/red/", "/raɪd/", "/rɪd/"], "answer": 1, "guessed": false}, {"id": 12, "q": "How many vowel phonemes are there in English?", "options": ["20", "22", "24", "26"], "answer": 0, "guessed": false}, {"id": 13, "q": "Which of the following words contains a voiced consonant?", "options": ["Pat", "Bat", "Cat", "Fat"], "answer": 1, "guessed": false}, {"id": 14, "q": "The smallest unit of sound that can change the meaning of a word is called a:", "options": ["Morpheme", "Phoneme", "Grapheme", "Lexeme"], "answer": 1, "guessed": false}, {"id": 15, "q": "The phoneme /θ/ in “think” is classified as a:", "options": ["Voiced dental fricative", "Voiceless dental fricative", "Voiced alveolar fricative", "Voiceless alveolar fricative"], "answer": 1, "guessed": false}, {"id": 16, "q": "Which pair represents a minimal pair?", "options": ["Ship – Sheep", "Cat – Dog", "Big – Large", "Write – Right"], "answer": 0, "guessed": false}, {"id": 17, "q": "An intelligible accent primarily focuses on:", "options": ["Perfect imitation of native speakers", "Clear pronunciation for easy understanding", "Use of local dialects", "Fast speech delivery"], "answer": 1, "guessed": false}, {"id": 18, "q": "Which is particularly important for an intelligible accent?", "options": ["Vocabulary choice", "Correct stress and rhythm", "Grammar accuracy", "Use of slang"], "answer": 1, "guessed": false}, {"id": 19, "q": "Intelligibility in speech refers to:", "options": ["The speaker's fluency", "The listener's ability to understand the speaker", "The speaker's vocabulary range", "The accent used by the speaker"], "answer": 1, "guessed": false}, {"id": 20, "q": "An intelligible accent aims to:", "options": ["Sound exactly like a native speaker", "Be easily understood by listeners of various backgrounds", "Focus on slang and idioms", "Ignore pronunciation rules"], "answer": 1, "guessed": false}, {"id": 21, "q": "Which organ is primarily responsible for the production of voice?", "options": ["Tongue", "Lungs", "Larynx", "Teeth"], "answer": 2, "guessed": false}, {"id": 22, "q": "The tongue is mainly responsible for:", "options": ["Producing airflow", "Controlling breathing", "Articulating different speech sounds", "Supporting the lungs"], "answer": 2, "guessed": false}, {"id": 23, "q": "Which of the following is NOT an organ of speech?", "options": ["Lips", "Teeth", "Heart", "Tongue"], "answer": 2, "guessed": false}, {"id": 24, "q": "The soft palate is also known as the:", "options": ["Velum", "Alveolar ridge", "Uvula", "Pharynx"], "answer": 0, "guessed": false}, {"id": 25, "q": "The vocal cords are located in the:", "options": ["Pharynx", "Larynx", "Nasal cavity", "Oral cavity"], "answer": 1, "guessed": false}, {"id": 26, "q": "A syllable is best defined as:", "options": ["A group of letters in a word", "A unit of sound with one vowel sound", "A group of consonants", "A sentence fragment"], "answer": 1, "guessed": false}, {"id": 27, "q": "The word “table” contains:", "options": ["One syllable", "Two syllables", "Three syllables", "Four syllables"], "answer": 1, "guessed": false}, {"id": 28, "q": "The part of a syllable that contains the vowel sound is called the:", "options": ["Onset", "Nucleus", "Coda", "Prefix"], "answer": 1, "guessed": false}, {"id": 29, "q": "In the word “plant”, the consonant cluster /pl/ represents the:", "options": ["Onset", "Nucleus", "Coda", "Rhyme"], "answer": 0, "guessed": false}, {"id": 30, "q": "The combination of the nucleus and coda is called the:", "options": ["Onset", "Rhyme", "Cluster", "Stress"], "answer": 1, "guessed": false}, {"id": 31, "q": "Intonation refers to:", "options": ["The speed of speaking", "The rise and fall of voice in speech", "The pronunciation of words", "The rhythm of syllables"], "answer": 1, "guessed": false}, {"id": 32, "q": "Falling intonation is usually used in:", "options": ["Yes/No questions", "Wh-questions and statements", "Unfinished sentences", "Questions expressing uncertainty"], "answer": 1, "guessed": false}, {"id": 33, "q": "Rising intonation at the end of a sentence often indicates:", "options": ["Completion", "Uncertainty or a question", "Anger", "Emphasis"], "answer": 1, "guessed": false}, {"id": 34, "q": "Which sentence is most likely to have rising intonation?", "options": ["You're coming tomorrow.", "Where are you going?", "Are you coming tomorrow?", "I finished my work."], "answer": 2, "guessed": false}, {"id": 35, "q": "The main purpose of practicing intonation is to improve:", "options": ["Grammar", "Voice clarity and naturalness in speech", "Vocabulary", "Spelling"], "answer": 1, "guessed": false}, {"id": 36, "q": "Which is the most polite way to ask about the weather?", "options": ["What's the weather?", "Tell me the weather.", "Could you please tell me what the weather is like today?", "Weather good?"], "answer": 2, "guessed": false}, {"id": 37, "q": "Which question is grammatically correct when asking about a place?", "options": ["How far is the park from here?", "Where you go park?", "You tell park distance?", "What park distance?"], "answer": 0, "guessed": false}, {"id": 38, "q": "What is an appropriate response to “What's the weather like today?”", "options": ["It's raining and quite cold.", "I went to school.", "It's morning.", "The shop is closed."], "answer": 0, "guessed": false}, {"id": 39, "q": "“Is it going to rain today?” is used to enquire about the:", "options": ["Travel plan", "Weather forecast", "Direction", "Location"], "answer": 1, "guessed": false}, {"id": 40, "q": "Which is a polite enquiry about a place?", "options": ["Show me that place now.", "What is this?", "Could you please tell me some places to visit nearby?", "You take me there?"], "answer": 2, "guessed": false}, {"id": 41, "q": "Which question is suitable for asking about someone's daily routine?", "options": ["What do you usually do every day?", "What did you buy yesterday?", "Where are you going now?", "Do you like music?"], "answer": 0, "guessed": false}, {"id": 42, "q": "What is the correct response to “When do you usually get up?”", "options": ["I am getting up now.", "I usually get up at 6 a.m.", "I will get up tomorrow.", "I get up to school."], "answer": 1, "guessed": false}, {"id": 43, "q": "Which sentence correctly describes a daily habit?", "options": ["I am watching TV now.", "I watch TV every evening.", "I watched TV yesterday.", "I will watch TV tomorrow."], "answer": 1, "guessed": false}, {"id": 44, "q": "Which question asks about frequency?", "options": ["What do you do?", "How often do you exercise?", "What are you doing now?", "Did you exercise yesterday?"], "answer": 1, "guessed": false}, {"id": 45, "q": "Which is the most appropriate way to ask for directions?", "options": ["Tell me where it is.", "Can you please tell me how to get to the bus station?", "You go that way?", "Where go?"], "answer": 1, "guessed": false}, {"id": 46, "q": "What does “go straight ahead” mean?", "options": ["Turn around and go back", "Walk without turning left or right", "Stop at the next corner", "Cross the road"], "answer": 1, "guessed": false}, {"id": 47, "q": "Choose the correct verb: “My mother, along with my father, ___ coming to the party.”", "options": ["are", "is", "were", "be"], "answer": 1, "guessed": false}, {"id": 48, "q": "Choose the correct verb: “Either my brother or my sisters ___ responsible for this.”", "options": ["is", "are", "am", "be"], "answer": 1, "guessed": false}, {"id": 49, "q": "Choose the correct verb: “Each of the students ___ finished their homework.”", "options": ["have", "has", "are", "is"], "answer": 1, "guessed": false}, {"id": 50, "q": "Which of the following is a complex sentence?", "options": ["She reads books.", "She reads books, and he writes stories.", "Because it was raining, we stayed indoors.", "He runs fast."], "answer": 2, "guessed": false}, {"id": 51, "q": "A panel discussion is best described as:", "options": ["A discussion among a selected group of experts in front of an audience, usually guided by a moderator", "A speech delivered by one person without any audience", "A written debate submitted to a judge", "An informal chat between two friends"], "answer": 0, "guessed": false}, {"id": 52, "q": "Which of the following is the best listening habit during a team meeting?", "options": ["Taking brief notes and politely clarifying doubts", "Checking your phone while others speak", "Interrupting to correct every point", "Preparing your own reply and ignoring the speaker"], "answer": 0, "guessed": false}, {"id": 53, "q": "Active listening during a negotiation helps a person to:", "options": ["Overpower the other party", "Understand the other party's needs and reach a mutually acceptable solution", "Avoid any compromise", "Speak more than the other party"], "answer": 1, "guessed": false}, {"id": 54, "q": "TED, as in “TED talks”, stands for:", "options": ["Technical Education and Development", "Technology, Entertainment, Design", "Talent, Expression, Debate", "Teaching, Engineering, Design"], "answer": 1, "guessed": false}, {"id": 55, "q": "When introducing yourself in a formal situation, you should:", "options": ["Talk about your favourite movies", "Ask personal questions immediately", "State your full name and designation or academic background", "Begin with a joke about the audience"], "answer": 2, "guessed": false}, {"id": 56, "q": "Which is the most suitable order for a self-introduction?", "options": ["Hobbies → closing → name → greeting", "Greeting → name → education/work → skills and interests → closing", "Closing → skills → greeting → name", "Skills → hobbies → closing → name"], "answer": 1, "guessed": false}, {"id": 57, "q": "Which statement is NOT suitable in a self-introduction at an interview?", "options": ["“I don't really have anything to say about myself.”", "“Good morning, I am Priya, a final-year engineering student.”", "“I have completed an internship in web development.”", "“I am keen to work in data analytics.”"], "answer": 0, "guessed": false}, {"id": 58, "q": "The main purpose of a technical presentation is to:", "options": ["Entertain the audience with humour", "Narrate personal stories", "Prove that the presenter is smarter than the audience", "Inform and explain technical information clearly to the audience"], "answer": 3, "guessed": false}, {"id": 59, "q": "A well-organised technical presentation generally follows which structure?", "options": ["Introduction → Body → Conclusion", "Conclusion → Body → Introduction", "Body → Introduction → Conclusion", "Body → Conclusion → Introduction"], "answer": 0, "guessed": false}, {"id": 60, "q": "Which of the following makes slides effective?", "options": ["Long paragraphs copied from a book", "Concise points supported by relevant graphs or diagrams", "Many fonts and bright colours", "Reading every slide word for word"], "answer": 1, "guessed": false}, {"id": 61, "q": "An effective way to conclude a technical presentation is to:", "options": ["Stop abruptly without explanation", "Say “I'm done” and leave", "Start a new unrelated topic", "Summarise the key points and invite questions"], "answer": 3, "guessed": false}, {"id": 62, "q": "In a debate, the side that supports the motion is called the:", "options": ["Opposition", "Audience", "Proposition", "Moderator"], "answer": 2, "guessed": false}, {"id": 63, "q": "The “motion” in a debate is:", "options": ["The final verdict of the judges", "The applause from the audience", "The topic or statement that is put forward for debate", "The reply to the opponent's points"], "answer": 2, "guessed": false}, {"id": 64, "q": "A “rebuttal” in a debate means:", "options": ["Repeating your own opening statement", "Thanking the audience", "Agreeing with the opposing side", "Countering the opponent's arguments with reasons and evidence"], "answer": 3, "guessed": false}, {"id": 65, "q": "The main purpose of roleplay in a workplace context is to:", "options": ["Play games during work hours", "Avoid actual work", "Write formal reports", "Practise real-life work situations in a safe environment"], "answer": 3, "guessed": false}, {"id": 66, "q": "Which of the following is an example of workplace roleplay?", "options": ["Acting in a feature film", "Playing a board game", "Practising how to handle an angry customer's complaint", "Reading a book silently"], "answer": 2, "guessed": false}, {"id": 67, "q": "In a group discussion, participants are mainly evaluated on:", "options": ["Communication, teamwork, leadership and knowledge of the topic", "Loudness of voice only", "Handwriting", "Ability to memorise dates"], "answer": 0, "guessed": false}, {"id": 68, "q": "The role of a moderator in a GD is to:", "options": ["Speak on behalf of all participants", "Only announce the winner", "Take notes silently without intervening", "Facilitate the discussion and maintain order"], "answer": 3, "guessed": false}, {"id": 69, "q": "Which behaviour should be avoided in a GD?", "options": ["Supporting points with examples", "Interrupting other speakers frequently", "Speaking politely", "Listening carefully"], "answer": 1, "guessed": false}, {"id": 70, "q": "If you disagree with a point made by another participant in a GD, you should:", "options": ["Interrupt and raise your voice", "Ignore the speaker completely", "Politely acknowledge the point and present your view with reasons", "Leave the discussion"], "answer": 2, "guessed": false}, {"id": 71, "q": "What is the main purpose of skimming?", "options": ["To read every word carefully", "To memorise all the details", "To get the general idea of a text quickly", "To analyse the grammar of each sentence"], "answer": 2, "guessed": false}, {"id": 72, "q": "Which technique is used in skimming?", "options": ["Reading headings, subheadings and the first sentences of paragraphs", "Reading every word slowly", "Highlighting every sentence", "Taking dictation"], "answer": 0, "guessed": false}, {"id": 73, "q": "Scanning is used to:", "options": ["Understand the writer's overall attitude", "Read a novel for enjoyment", "Find specific information such as a date, name or number", "Practise pronunciation"], "answer": 2, "guessed": false}, {"id": 74, "q": "You want to check the departure time of a train in a timetable. Which reading technique is most suitable?", "options": ["Skimming", "Intensive reading", "Scanning", "Reading aloud"], "answer": 2, "guessed": false}, {"id": 75, "q": "Which pair correctly matches the reading technique with its purpose?", "options": ["Skimming – specific details; Scanning – general idea (gist)", "Skimming – general idea (gist); Scanning – specific details", "Skimming – word meanings; Scanning – grammar", "Skimming – memorising; Scanning – critical analysis"], "answer": 1, "guessed": false}, {"id": 76, "q": "What is the main purpose of a case study article?", "options": ["To explore, analyse and present a real-life situation or issue", "To entertain readers with fictional stories", "To write poetry on a theme", "To advertise a product"], "answer": 0, "guessed": false}, {"id": 77, "q": "A case study on technology must be supported by:", "options": ["Personal anecdotes only", "Unsupported opinions", "Poetic descriptions", "Evidence, data and practical applications"], "answer": 3, "guessed": false}, {"id": 78, "q": "Which of the following is NOT typically part of a case study?", "options": ["Data and statistics", "Fictional stories unrelated to the topic", "Analysis and conclusions", "Opinions supported by evidence"], "answer": 1, "guessed": false}, {"id": 79, "q": "What is the main purpose of interviewing an achiever?", "options": ["To test their academic knowledge", "To entertain the audience with jokes", "To discuss unrelated topics", "To understand their journey, challenges and strategies for success"], "answer": 3, "guessed": false}, {"id": 80, "q": "Which of the following is NOT appropriate when interviewing an achiever?", "options": ["Respecting the interviewee", "Interrupting frequently", "Asking clear and concise questions", "Preparing questions in advance"], "answer": 1, "guessed": false}, {"id": 81, "q": "Dr. A.P.J. Abdul Kalam is popularly known as the:", "options": ["Iron Man of India", "Father of the Nation", "Milkman of India", "Missile Man of India"], "answer": 3, "guessed": false}, {"id": 82, "q": "Wings of Fire is the autobiography of:", "options": ["Sudha Murthy", "Mahatma Gandhi", "Dr. A.P.J. Abdul Kalam", "N. R. Narayana Murthy"], "answer": 2, "guessed": false}, {"id": 83, "q": "Sudha Murthy is well known as the chairperson of the:", "options": ["Tata Trusts", "Infosys Foundation", "Reliance Foundation", "Wipro Foundation"], "answer": 1, "guessed": false}, {"id": 84, "q": "What is the main purpose of an introduction in writing?", "options": ["To grab the reader's attention and introduce the topic", "To summarise the entire text", "To provide all supporting details", "To conclude the essay"], "answer": 0, "guessed": false}, {"id": 85, "q": "The sentence in an introduction that states the central idea of the writing is called the:", "options": ["Thesis statement", "Footnote", "Caption", "Bibliography"], "answer": 0, "guessed": false}, {"id": 86, "q": "Reflections on an achiever's biography differ from summaries because they:", "options": ["Include only dates", "Ignore the achiever's achievements", "Include personal thoughts and learning, not just facts", "Are always shorter than summaries"], "answer": 2, "guessed": false}, {"id": 87, "q": "Which is the most suitable opening for a reflection on an achiever's interview?", "options": ["“The most valuable lesson I learned from this interview is…”", "“The interview was very long.”", "“He was born in a small town.”", "“This is boring…”"], "answer": 0, "guessed": false}, {"id": 88, "q": "A reflection should ideally conclude with:", "options": ["A summary of every chapter", "The main lesson learned and its personal significance", "A list of random facts", "A biography outline"], "answer": 1, "guessed": false}, {"id": 89, "q": "Which phrase is most suitable for expressing a personal opinion?", "options": ["“Everyone knows that…”", "“You must agree that…”", "“In my view, … because …”", "“This is the only truth…”"], "answer": 2, "guessed": false}, {"id": 90, "q": "Which of the following is NOT a good practice when expressing personal opinions?", "options": ["Respecting differing viewpoints", "Giving clear reasons", "Listening to others' views", "Using offensive language to support your opinion"], "answer": 3, "guessed": false}, {"id": 91, "q": "Fill in the blank: The man ___ helped me yesterday is my neighbour.", "options": ["whose", "who", "which", "whom"], "answer": 1, "guessed": false}, {"id": 92, "q": "Fill in the blank: I met a girl ___ father is a famous artist.", "options": ["who", "which", "whom", "whose"], "answer": 3, "guessed": false}, {"id": 93, "q": "Choose the correct sentence:", "options": ["The book which I read yesterday was very interesting.", "The book which I reads yesterday was very interesting.", "The book which I am reading yesterday was very interesting.", "The book which I read yesterday were very interesting."], "answer": 0, "guessed": false}, {"id": 94, "q": "Choose the correct sentence:", "options": ["The engineer who have designed this bridge is my friend.", "The engineer who has designed this bridge is my friend.", "The engineer whom has designed this bridge is my friend.", "The engineer which has designed this bridge is my friend."], "answer": 1, "guessed": false}, {"id": 95, "q": "Fill in the blank: I will never forget the day ___ we first met.", "options": ["who", "which", "whom", "when"], "answer": 3, "guessed": false}, {"id": 96, "q": "In political jargon, a “lame duck” is:", "options": ["A very active and popular politician", "A political protest march", "A politician who has lost power but is still in office for a while", "A type of government"], "answer": 2, "guessed": false}, {"id": 97, "q": "The political term “bipartisan” refers to:", "options": ["A political rally", "A decision taken by a single party", "A political scandal", "Involving cooperation between two political parties"], "answer": 3, "guessed": false}, {"id": 98, "q": "The political term “filibuster” means:", "options": ["A voting procedure", "A prolonged speech used to delay legislative action", "A government budget plan", "A general election"], "answer": 1, "guessed": false}, {"id": 99, "q": "In technical jargon, “IoT” stands for:", "options": ["Internet of Things", "Input of Technology", "Integration of Tools", "Intelligence of Text"], "answer": 0, "guessed": false}, {"id": 100, "q": "A “manifesto” in politics is:", "options": ["A public declaration of the policies and aims of a political party", "A law passed by Parliament", "A type of voting machine", "A ballot paper"], "answer": 0, "guessed": false}, {"id": 101, "q": "Which of the following is the most polite way to make a request to a senior?", "options": ["Give me leave tomorrow.", "I want leave tomorrow.", "Would it be possible for me to take leave tomorrow?", "You must give me leave tomorrow."], "answer": 2, "guessed": false}, {"id": 102, "q": "Which of the following is NOT a polite expression for making a request?", "options": ["Could you please help me?", "Would you mind sending the file?", "I was wondering if you could help me.", "You had better do it now."], "answer": 3, "guessed": false}, {"id": 103, "q": "Which is the most appropriate way to accept a request politely?", "options": ["Certainly, I will do it right away.", "That is not my job.", "Ask someone else; I am busy.", "Why should I do it?"], "answer": 0, "guessed": false}, {"id": 104, "q": "Which sentence is a formal way of asking for permission?", "options": ["I am leaving the meeting.", "May I be excused from the meeting, please?", "Let me go out.", "Can I go? I want to."], "answer": 1, "guessed": false}, {"id": 105, "q": "Someone asks, \"Would you mind if I opened the window?\" Which reply grants permission politely?", "options": ["Yes, I do mind, but do it.", "Don't ask silly questions.", "Not at all, please go ahead.", "Open it yourself."], "answer": 2, "guessed": false}, {"id": 106, "q": "Which modal verb is the most formal for asking permission?", "options": ["Can", "Will", "Do", "May"], "answer": 3, "guessed": false}, {"id": 107, "q": "Which sentence expresses gratitude in a formal manner?", "options": ["Thanx, bro.", "I sincerely appreciate your timely support.", "Whatever, it's done.", "No big deal."], "answer": 1, "guessed": false}, {"id": 108, "q": "Which is the best reply to \"Thank you for your help\"?", "options": ["You're welcome.", "So what?", "Pay me for it.", "It was only my duty, nothing more."], "answer": 0, "guessed": false}, {"id": 109, "q": "Which sentence is a suitable formal apology for a delayed delivery?", "options": ["It is not our fault.", "Delays happen all the time.", "We sincerely apologise for the delay in delivery.", "Whatever happened, happened."], "answer": 2, "guessed": false}, {"id": 110, "q": "A good apology should:", "options": ["blame other people", "make excuses", "avoid the person concerned", "take responsibility and offer to correct the mistake"], "answer": 3, "guessed": false}, {"id": 111, "q": "Which expression shows strong agreement?", "options": ["I couldn't agree more.", "I doubt it.", "That is absurd.", "Not at all."], "answer": 0, "guessed": false}, {"id": 112, "q": "Which sentence shows partial agreement?", "options": ["I disagree entirely.", "You are right up to a point, but I think there is more to it.", "Absolutely, you are always right.", "No way, that's wrong."], "answer": 1, "guessed": false}, {"id": 113, "q": "Which is the most polite way to disagree?", "options": ["You've got it all wrong.", "That is rubbish.", "Stop talking nonsense.", "I'm not sure I agree; could we consider another view?"], "answer": 3, "guessed": false}, {"id": 114, "q": "Instructions are usually written in the:", "options": ["interrogative mood", "past perfect tense", "imperative mood", "conditional mood"], "answer": 2, "guessed": false}, {"id": 115, "q": "Which of the following is a guideline rather than a strict command?", "options": ["Visitors are advised to wear helmets.", "Do not enter.", "Pay now.", "Stop!"], "answer": 0, "guessed": false}, {"id": 116, "q": "Good written instructions should be:", "options": ["long and vague", "sequential, clear and concise", "written as one unbroken paragraph", "full of jokes"], "answer": 1, "guessed": false}, {"id": 117, "q": "Colloquial language is most suitable for:", "options": ["legal contracts", "research papers", "formal job applications", "casual conversation with friends"], "answer": 3, "guessed": false}, {"id": 118, "q": "The colloquial expression \"hang out\" means:", "options": ["to dry clothes outside", "to leave a job", "to spend time together informally", "to hurt someone"], "answer": 2, "guessed": false}, {"id": 119, "q": "Which of the following is a colloquial way of saying \"I do not know\"?", "options": ["I dunno.", "I am uninformed.", "I possess no knowledge of it.", "I am unaware of the matter."], "answer": 0, "guessed": false}, {"id": 120, "q": "Which salutation is correct in a formal letter when the recipient's name is unknown?", "options": ["Hi guys,", "Dear Sir/Madam,", "Hey,", "Dear friend,"], "answer": 1, "guessed": false}, {"id": 121, "q": "A letter of enquiry usually ends with:", "options": ["a threat of legal action", "a complaint about service", "a request for an early reply and thanks", "a humorous remark"], "answer": 2, "guessed": false}, {"id": 122, "q": "\"We placed Order No. 245 on 3 May but have still not received the goods.\" This sentence would appear in a:", "options": ["letter of enquiry", "letter of invitation", "letter of recommendation", "letter of complaint"], "answer": 3, "guessed": false}, {"id": 123, "q": "Which complimentary close goes with the salutation \"Dear Sir/Madam\"?", "options": ["Yours sincerely", "Yours faithfully", "Love", "Best wishes"], "answer": 1, "guessed": false}, {"id": 124, "q": "A letter of order should end by:", "options": ["requesting prompt delivery and confirming payment terms", "criticising the supplier", "asking unrelated questions", "apologising for placing the order"], "answer": 0, "guessed": false}, {"id": 125, "q": "The subject line of a formal email should be:", "options": ["left blank", "a long paragraph", "written in capital letters", "brief and specific"], "answer": 3, "guessed": false}, {"id": 126, "q": "In an email, \"CC\" stands for:", "options": ["Complete Copy", "Central Contact", "Carbon Copy", "Copy Cancelled"], "answer": 2, "guessed": false}, {"id": 127, "q": "When you attach a file to an email, you should:", "options": ["never mention it", "mention the attachment in the body of the email", "send it in a separate email without any message", "hide it from the recipient"], "answer": 1, "guessed": false}, {"id": 128, "q": "\"Reply All\" should be used only when:", "options": ["your response is relevant to all the recipients", "you want to spam everyone", "you are angry with the sender", "the email is marked private"], "answer": 0, "guessed": false}, {"id": 129, "q": "Before sending a formal email, you should:", "options": ["add emojis", "type it in capital letters", "proofread it for spelling, grammar and tone", "delete the subject line"], "answer": 2, "guessed": false}, {"id": 130, "q": "The best way to begin a reply to a customer's complaint email is to:", "options": ["blame the customer", "ignore the problem", "start with a joke", "acknowledge the concern and thank the sender for writing"], "answer": 3, "guessed": false}, {"id": 131, "q": "The topic sentence of a paragraph:", "options": ["concludes the whole essay", "states the main idea of the paragraph", "gives only an example", "quotes a famous person"], "answer": 1, "guessed": false}, {"id": 132, "q": "A paragraph that explains a process or topic using facts is called:", "options": ["expository", "narrative", "argumentative", "descriptive"], "answer": 0, "guessed": false}, {"id": 133, "q": "Which topic is best suited for an expository paragraph?", "options": ["My scary night in the forest", "The beauty of a sunset", "Why homework should be banned", "How a solar cell converts sunlight into electricity"], "answer": 3, "guessed": false}, {"id": 134, "q": "Which story element creates tension and drives the plot of a short story?", "options": ["Footnote", "Glossary", "Conflict", "Index"], "answer": 2, "guessed": false}, {"id": 135, "q": "\"The golden sunlight spilled over the quiet, mist-covered hills.\" This sentence belongs to a ______ paragraph.", "options": ["descriptive", "expository", "argumentative", "technical"], "answer": 0, "guessed": false}, {"id": 136, "q": "An argumentative paragraph generally ends with:", "options": ["a new, unrelated topic", "a concluding sentence restating the writer's stand", "a joke", "a list of characters"], "answer": 1, "guessed": false}, {"id": 137, "q": "Identify the error: She has completed her work yesterday.", "options": ["She", "work", "has completed", "yesterday (no error here)"], "answer": 2, "guessed": false}, {"id": 138, "q": "Identify the error: The informations are very useful.", "options": ["The", "very", "useful", "informations (should be \"information is\")"], "answer": 3, "guessed": false}, {"id": 139, "q": "Identify the error: I look forward to meet you.", "options": ["I", "to meet (should be \"to meeting\")", "look forward", "you"], "answer": 1, "guessed": false}, {"id": 140, "q": "Choose the correctly punctuated sentence.", "options": ["It's raining outside.", "Its raining outside.", "Its' raining outside.", "Its raining, outside."], "answer": 0, "guessed": false}, {"id": 141, "q": "Direct: She said, \"I am reading a book.\" Choose the correct reported speech.", "options": ["She said that she is reading a book.", "She said that I am reading a book.", "She said that she were reading a book.", "She said that she was reading a book."], "answer": 3, "guessed": false}, {"id": 142, "q": "Direct: He said, \"I have lost my pen.\" Choose the correct reported speech.", "options": ["He said that he has lost his pen.", "He said that I had lost my pen.", "He said that he had lost his pen.", "He said that he have lost his pen."], "answer": 2, "guessed": false}, {"id": 143, "q": "Direct: She asked, \"What is your name?\" Choose the correct reported speech.", "options": ["She asked what is my name.", "She asked what my name was.", "She asked what was my name.", "She asked that what my name was."], "answer": 1, "guessed": false}, {"id": 144, "q": "Direct: He said, \"Please sit down.\" Choose the correct reported speech.", "options": ["He requested me to sit down.", "He said me to sit down.", "He requested me sit down.", "He told please sit down."], "answer": 0, "guessed": false}, {"id": 145, "q": "In reported speech, \"tomorrow\" generally changes to:", "options": ["yesterday", "today", "the next day / the following day", "the previous day"], "answer": 2, "guessed": false}, {"id": 146, "q": "Active: She writes a letter. Choose the correct passive form.", "options": ["A letter was written by her.", "A letter writes her.", "A letter is writing by her.", "A letter is written by her."], "answer": 3, "guessed": false}, {"id": 147, "q": "Active: They are building a bridge. Choose the correct passive form.", "options": ["A bridge is being built by them.", "A bridge is built by them.", "A bridge was being built by them.", "A bridge are being built by them."], "answer": 0, "guessed": false}, {"id": 148, "q": "Active: The engineer repaired the machine. Choose the correct passive form.", "options": ["The machine is repaired by the engineer.", "The machine was repaired by the engineer.", "The machine has repaired by the engineer.", "The engineer was repaired by the machine."], "answer": 1, "guessed": false}, {"id": 149, "q": "Active: Students will submit the assignments tomorrow. Choose the correct passive form.", "options": ["The assignments will submitted by the students tomorrow.", "The assignments are submitted by the students tomorrow.", "The students will be submitted by the assignments tomorrow.", "The assignments will be submitted by the students tomorrow."], "answer": 3, "guessed": false}, {"id": 150, "q": "Which of the following sentences is in the passive voice?", "options": ["The doctor examined the patient.", "The doctor is examining the patient.", "The patient was examined by the doctor.", "The patient examines the doctor."], "answer": 2, "guessed": false}];
+
+    const OPTION_LABELS = ['A', 'B', 'C', 'D'];
+
+    // State
+    let quizSet = [];
+    let currentIndex = 0;
+    let score = 0;
+    let userAnswers = []; // records { qData, question, options, selected, correct, isCorrect }
+    let isAnswerLocked = false;
+    let isReattemptRound = false;
+    let lastWrongQuestions = [];
+
+    // DOM Elements
+    const startScreen = document.getElementById('start-screen');
+    const quizScreen = document.getElementById('quiz-screen');
+    const resultScreen = document.getElementById('result-screen');
+
+    const headerSubtitle = document.getElementById('header-subtitle');
+    const startPoolSub = document.getElementById('start-pool-sub');
+    const featureAttemptInfo = document.getElementById('feature-attempt-info');
+    const featurePoolInfo = document.getElementById('feature-pool-info');
+
+    const startBtn = document.getElementById('start-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const reattemptBtn = document.getElementById('reattempt-btn');
+    const retryBtn = document.getElementById('retry-btn');
+    const homeBtn = document.getElementById('home-btn');
+
+    const questionTracker = document.getElementById('question-tracker');
+    const scoreTracker = document.getElementById('score-tracker');
+    const progressBar = document.getElementById('progress-bar');
+    const progressBarContainer = document.getElementById('progress-bar-container');
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+
+    const finalScore = document.getElementById('final-score');
+    const scoreTotalLabel = document.getElementById('score-total-label');
+    const percentageBadge = document.getElementById('percentage-badge');
+    const feedbackMessage = document.getElementById('feedback-message');
+    const mistakesWrapper = document.getElementById('mistakes-wrapper');
+    const mistakesCount = document.getElementById('mistakes-count');
+    const mistakesList = document.getElementById('mistakes-list');
+
+    // Fisher-Yates shuffle
+    function shuffleArray(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      return arr;
+    }
+
+    function showScreen(screen) {
+      startScreen.classList.remove('active');
+      quizScreen.classList.remove('active');
+      resultScreen.classList.remove('active');
+      screen.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function startQuiz() {
+      isReattemptRound = false;
+      lastWrongQuestions = [];
+      quizSet = shuffleArray(ALL_QUESTIONS);
+      currentIndex = 0;
+      score = 0;
+      userAnswers = [];
+      isAnswerLocked = false;
+
+      showScreen(quizScreen);
+      renderQuestion();
+    }
+
+    function startReattempt() {
+      if (!lastWrongQuestions || lastWrongQuestions.length === 0) return;
+      isReattemptRound = true;
+      quizSet = shuffleArray(lastWrongQuestions);
+      currentIndex = 0;
+      score = 0;
+      userAnswers = [];
+      isAnswerLocked = false;
+
+      showScreen(quizScreen);
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      isAnswerLocked = false;
+      nextBtn.style.display = 'none';
+
+      const qData = quizSet[currentIndex];
+      const qNum = currentIndex + 1;
+      const total = quizSet.length;
+
+      // Meta info
+      questionTracker.textContent = `Question ${qNum} of ${total}`;
+      scoreTracker.textContent = `Score: ${score}`;
+
+      const progressPct = ((qNum - 1) / total) * 100;
+      progressBar.style.width = `${progressPct}%`;
+      if (progressBarContainer) {
+        progressBarContainer.setAttribute('aria-valuenow', qNum);
+        progressBarContainer.setAttribute('aria-valuemax', total);
+      }
+
+      // Question text
+      questionText.textContent = qData.q;
+
+      // Options
+      optionsContainer.innerHTML = '';
+      qData.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.setAttribute('data-index', idx);
+        btn.setAttribute('aria-label', `Option ${OPTION_LABELS[idx]}: ${optText}`);
+
+        const badge = document.createElement('span');
+        badge.className = 'option-badge';
+        badge.textContent = OPTION_LABELS[idx];
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'option-label-text';
+        textSpan.textContent = optText;
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'option-status-icon';
+        iconSpan.setAttribute('aria-hidden', 'true');
+
+        btn.appendChild(badge);
+        btn.appendChild(textSpan);
+        btn.appendChild(iconSpan);
+
+        btn.addEventListener('click', () => handleOptionSelect(idx));
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function handleOptionSelect(selectedIndex) {
+      // Prevent accidental double clicks or changing answer once locked
+      if (isAnswerLocked) return;
+      isAnswerLocked = true;
+
+      const qData = quizSet[currentIndex];
+      const isCorrect = (selectedIndex === qData.answer);
+
+      if (isCorrect) {
+        score++;
+        scoreTracker.textContent = `Score: ${score}`;
+      }
+
+      // Record answer for mistakes review & reattempt
+      userAnswers.push({
+        qData: qData,
+        question: qData.q,
+        options: qData.options,
+        selected: selectedIndex,
+        correct: qData.answer,
+        isCorrect: isCorrect
+      });
+
+      // Update UI of option buttons
+      const buttons = optionsContainer.querySelectorAll('.option-btn');
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        const icon = btn.querySelector('.option-status-icon');
+
+        if (idx === qData.answer) {
+          // Mark correct answer
+          if (idx === selectedIndex) {
+            btn.classList.add('selected-correct');
+            icon.textContent = '✓';
+          } else {
+            btn.classList.add('reveal-correct');
+            icon.textContent = '✓';
+          }
+        } else if (idx === selectedIndex) {
+          // Selected wrong
+          btn.classList.add('selected-wrong');
+          icon.textContent = '✗';
+        }
+      });
+
+      // Show Next or Finish button
+      const isLast = (currentIndex === quizSet.length - 1);
+      nextBtn.textContent = isLast ? 'Finish' : 'Next Question';
+      nextBtn.style.display = 'inline-flex';
+      nextBtn.focus();
+    }
+
+    function handleNext() {
+      if (currentIndex < quizSet.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      const total = quizSet.length;
+      const pct = Math.round((score / total) * 100);
+
+      // Score displays
+      finalScore.textContent = score;
+      if (scoreTotalLabel) {
+        scoreTotalLabel.textContent = `out of ${total}`;
+      }
+      percentageBadge.textContent = `${pct}%`;
+
+      // Review mistakes & reattempt candidate extraction
+      const mistakes = userAnswers.filter(ans => !ans.isCorrect);
+      lastWrongQuestions = mistakes.map(ans => ans.qData);
+
+      // Reattempt button visibility
+      if (mistakes.length > 0) {
+        reattemptBtn.style.display = 'inline-flex';
+        reattemptBtn.textContent = `Reattempt wrong questions (${mistakes.length})`;
+      } else {
+        reattemptBtn.style.display = 'none';
+      }
+
+      // Grade styles & message
+      percentageBadge.className = 'percentage-badge';
+      if (isReattemptRound && mistakes.length === 0) {
+        percentageBadge.classList.add('grade-excellent');
+        feedbackMessage.textContent = 'All mistakes cleared! 🎉';
+      } else if (pct >= 90) {
+        percentageBadge.classList.add('grade-excellent');
+        feedbackMessage.textContent = 'Outstanding work! Excellent performance!';
+      } else if (pct >= 70) {
+        percentageBadge.classList.add('grade-good');
+        feedbackMessage.textContent = 'Good job! Well done!';
+      } else if (pct >= 50) {
+        percentageBadge.classList.add('grade-fair');
+        feedbackMessage.textContent = 'Good effort! Keep practicing to improve!';
+      } else {
+        percentageBadge.classList.add('grade-low');
+        feedbackMessage.textContent = 'Needs more revision! Practice again to build confidence.';
+      }
+
+      mistakesList.innerHTML = '';
+      if (mistakes.length === 0) {
+        mistakesWrapper.style.display = 'block';
+        mistakesCount.textContent = '0';
+        mistakesList.innerHTML = isReattemptRound
+          ? '<div class="perfect-score-banner">🎉 All mistakes cleared! No errors remaining.</div>'
+          : '<div class="perfect-score-banner">🎉 Perfect score! No mistakes to review.</div>';
+      } else {
+        mistakesWrapper.style.display = 'block';
+        mistakesCount.textContent = mistakes.length;
+
+        mistakes.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'mistake-card';
+
+          const qElem = document.createElement('div');
+          qElem.className = 'mistake-q';
+          qElem.textContent = m.question;
+
+          const yourAns = document.createElement('div');
+          yourAns.className = 'mistake-ans-line';
+          yourAns.innerHTML = `<span class="ans-label ans-wrong">Your answer:</span> <span>${OPTION_LABELS[m.selected]}) ${m.options[m.selected]}</span>`;
+
+          const correctAns = document.createElement('div');
+          correctAns.className = 'mistake-ans-line';
+          correctAns.innerHTML = `<span class="ans-label ans-correct">Correct answer:</span> <span>${OPTION_LABELS[m.correct]}) ${m.options[m.correct]}</span>`;
+
+          card.appendChild(qElem);
+          card.appendChild(yourAns);
+          card.appendChild(correctAns);
+          mistakesList.appendChild(card);
+        });
+      }
+
+      showScreen(resultScreen);
+    }
+
+    function initApp() {
+      const totalAvailable = ALL_QUESTIONS.length;
+      if (headerSubtitle) headerSubtitle.textContent = `All ${totalAvailable} questions in one attempt`;
+      if (startPoolSub) startPoolSub.textContent = `All ${totalAvailable} questions in one attempt`;
+      if (featureAttemptInfo) featureAttemptInfo.innerHTML = `<strong>All ${totalAvailable} questions</strong> in one attempt (shuffled)`;
+      if (featurePoolInfo) featurePoolInfo.innerHTML = `<strong>${totalAvailable} verified questions</strong> in total question pool`;
+    }
+
+    // Event Listeners
+    startBtn.addEventListener('click', startQuiz);
+    nextBtn.addEventListener('click', handleNext);
+    reattemptBtn.addEventListener('click', startReattempt);
+    retryBtn.addEventListener('click', startQuiz);
+    homeBtn.addEventListener('click', () => showScreen(startScreen));
+
+    initApp();
+  </script>
+</body>
+</html>
